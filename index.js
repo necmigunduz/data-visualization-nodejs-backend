@@ -105,7 +105,7 @@ app.get('/api/statistics', function(req,res) {
 })
 
 // Create server
-let server =  app.listen(5000, function() {
-    let port = server.address().port
-    console.log("App Server running at - https://localhost:%s", port)
-})
+// let server =  app.listen(5000, function() {
+//     let port = server.address().port
+//     console.log("App Server running at - https://localhost:%s", port)
+// })
