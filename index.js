@@ -3,7 +3,10 @@ const csv = require('fast-csv');
 const mongodb = require('mongodb');
 const fs = require('fs');
 const express = require('express');
+const cors = require('cors');
 const app = express();
+
+app.use(cors())
 
 // Set Global Directory
 global.__basedir = __dirname;
@@ -81,7 +84,7 @@ app.post('/api/upload-csv-file', upload.single("file"), (req, res) => {
     }
 })
 
-app.get('/api/statistics', function(req,res) {
+app.get('/api/statistics', (req,res) => {
     var url = "mongodb://localhost:27017/TestDB";
     var dbConn;
     mongodb.MongoClient.connect(url, {
@@ -105,7 +108,7 @@ app.get('/api/statistics', function(req,res) {
 })
 
 // Create server
-// let server =  app.listen(5000, function() {
-//     let port = server.address().port
-//     console.log("App Server running at - https://localhost:%s", port)
-// })
+let server =  app.listen(5000, function() {
+    let port = server.address().port
+    console.log("App Server running at - https://localhost:%s", port)
+})
