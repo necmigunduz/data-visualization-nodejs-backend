@@ -3,10 +3,14 @@ const csv = require('fast-csv');
 const mongodb = require('mongodb');
 const fs = require('fs');
 const express = require('express');
-const cors = require('cors');
 const app = express();
 
-app.use(cors())
+// Allow CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // Set Global Directory
 global.__basedir = __dirname;
@@ -40,8 +44,8 @@ app.post('/api/upload-csv-file', upload.single("file"), (req, res) => {
         }
         
         let csvData= []
-        let filePath = __basedir + '/uploads/' + req.file.filename
-        fs.createReadStream(filePath)
+        let path = __basedir + '/uploads/' + req.file.filename
+        fs.createReadStream(path)
             .pipe(csv.parse({headers: true}))
             .on("error", (error) => {
                 throw error.message
