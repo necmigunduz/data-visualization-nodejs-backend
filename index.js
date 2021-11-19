@@ -98,6 +98,7 @@ app.get('/api/statistics', (req,res) => {
 
         var collectionName = 'statistics'
         var collection = dbConn.collection(collectionName)
+        
         collection.find().toArray(function(err, result){
             if(err) throw err
             res.status(200).send({ statistics : result })
